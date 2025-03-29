@@ -15,10 +15,10 @@ window.addEventListener('DOMContentLoaded', () => {
     const isQQ = /QQ\//i.test(ua) || /MQQBrowser/i.test(ua);
 
     if(!isWechat && !isQQ) {
-        document.getElementById('loading').style.display = 'block';
-        document.getElementById('content').style.display = 'none';
-    } else {
-        window.location.href = targetUrl;
+        document.getElementById('loading').style.display = 'block'; // 显示加载提示
+        setTimeout(() => {
+            window.location.href = targetUrl;
+        }, 2000); // 延迟2秒后跳转
     }
 });
 
@@ -119,7 +119,12 @@ body::before {
     animation: fade-in 0.6s ease-out;
 }
 
-.loading-container {
+#loading {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     background: var(--glass-bg);
     border-radius: 20px;
     padding: 32px;
@@ -127,11 +132,8 @@ body::before {
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.1);
-    max-width: 500px;
-    width: 90%;
-    text-align: center;
-    animation: fade-in 0.6s ease-out;
-    display: none;
+    z-index: 1000;
+    color: var(--text-color);
 }
 
 @keyframes fade-in {
@@ -145,29 +147,11 @@ body::before {
     }
 }
 
-.spinner {
-    border: 8px solid rgba(0, 255, 255, 0.3);
-    border-top: 8px solid var(--primary-color);
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    animation: spin 2s linear infinite;
-    margin-bottom: 20px;
-}
-
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
 </style>
 </head>
 <body>
-<div id="loading" class="loading-container">
-    <div class="spinner"></div>
-    <h1>正在加载网页，请稍后...</h1>
-</div>
-<div id="content" class="container">
+<div id="loading">正在加载，请稍后...</div>
+<div class="container">
     <h1>精选影视丨小说丨动漫丨音乐黑科技资源</h1>
     <p class="protocol">检测到访问环境限制，请根据以下操作在浏览器打开</p>
     <ul class="steps">
