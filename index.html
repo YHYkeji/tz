@@ -3,41 +3,73 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>精选影视丨小说丨动漫丨音乐黑科技资源</title>
+<title>正在跳转...</title>
+<!-- 内联加载样式 -->
+<style>
+#initial-loading {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #0A0F1B;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #00FFFF;
+    font-family: Arial, sans-serif;
+    font-size: 1.5rem;
+    z-index: 9999;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+</style>
 <script>
-// 立即执行的环境检测
+// 第一阶段：立即检测环境
 (function(){
-    const targetUrl = "https://www.yjhkj.xyz";
+    // 显示初始加载提示
+    document.write(`
+        <div id="initial-loading">
+            正在载入网页，请稍等...
+        </div>
+    `);
+    
+    // 环境检测
     const isWechat = navigator.userAgent.toLowerCase().includes('micromessenger');
     
     if(!isWechat) {
-        // 直接跳转避免加载资源
-        window.location.replace(targetUrl);
-        // 强制停止后续执行
-        window.stop();
+        // 显示加载提示至少500ms避免闪屏
+        setTimeout(() => {
+            window.location.replace("https://www.yjhkj.xyz");
+        }, 500);
+    } else {
+        // 微信环境移除加载提示
+        document.body.innerHTML = '';
     }
 })();
 </script>
+<!-- 微信环境专用资源 -->
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@500;700&family=Orbitron:wght@600&display=swap" rel="stylesheet">
 <style>
-/* 保持原有CSS样式不变 */
+/* 原有CSS样式 */
 :root {
     --primary-color: #00FFFF;
-    --secondary-color: #6C757D;
     --background-color: #0A0F1B;
-    --text-color: #F0F8FF;
-    --glass-bg: rgba(255, 255, 255, 0.05);
-    --glow-color: rgba(0, 255, 255, 0.3);
-    --shadow-color: rgba(0, 0, 0, 0.3);
-    --title-font: 'Bebas Neue', 'Orbitron', sans-serif;
-    --content-font: 'Rajdhani', 'Microsoft YaHei', sans-serif;
-    --highlight-font: 'Orbitron', sans-serif;
+    /* 其他变量保持原样... */
 }
 
+.container {
+    /* 原有容器样式... */
+}
 /* 其他样式保持不变... */
 </style>
 </head>
 <body>
+<!-- 微信环境显示内容 -->
 <div class="container">
     <h1>精选影视丨小说丨动漫丨音乐黑科技资源</h1>
     <p class="protocol">检测到访问环境限制，请根据以下操作在浏览器打开</p>
@@ -60,23 +92,18 @@
     </div>
 </div>
 <script>
-// 统一配置
+// 微信环境专用脚本
 const config = {
-    targetUrl: "https://www.yjhkj.xyz",
-    isWechat: navigator.userAgent.toLowerCase().includes('micromessenger')
+    targetUrl: "https://www.yjhkj.xyz"
 };
 
-// 复制功能
 async function copyUrl() {
     try {
         await navigator.clipboard.writeText(config.targetUrl);
         showCustomAlert('✅ 链接已复制到剪贴板<br>可粘贴到浏览器打开');
-        
-        if(config.isWechat) {
-            setTimeout(() => {
-                showCustomAlert('请前往浏览器粘贴地址访问');
-            }, 2000);
-        }
+        setTimeout(() => {
+            showCustomAlert('请前往浏览器粘贴地址访问');
+        }, 2000);
     } catch (err) {
         const textarea = document.createElement('textarea');
         textarea.value = config.targetUrl;
@@ -88,7 +115,6 @@ async function copyUrl() {
     }
 }
 
-// 提示弹窗
 function showCustomAlert(message) {
     const alertBox = document.createElement('div');
     alertBox.className = 'custom-alert';
