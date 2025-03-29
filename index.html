@@ -3,110 +3,39 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>正在跳转...</title>
-<!-- 内联加载样式 -->
-<style>
-#initial-loading {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: #0A0F1B;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #00FFFF;
-    font-family: Arial, sans-serif;
-    font-size: 1.5rem;
-    z-index: 9999;
-    animation: pulse 1.5s infinite;
-}
-
-@keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.5; }
-}
-</style>
+<title>精选影视丨小说丨动漫丨音乐黑科技资源</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
 <script>
-// 第一阶段：立即检测环境
-(function(){
-    // 显示初始加载提示
-    document.write(`
-        <div id="initial-loading">
-            正在载入网页，请稍等...
-        </div>
-    `);
-    
-    // 环境检测
-    const isWechat = navigator.userAgent.toLowerCase().includes('micromessenger');
-    
-    if(!isWechat) {
-        // 显示加载提示至少500ms避免闪屏
-        setTimeout(() => {
-            window.location.replace("https://www.yjhkj.xyz");
-        }, 500);
+
+const targetUrl = "https://www.yjhkj.xyz";
+
+window.addEventListener('DOMContentLoaded', () => {
+    const ua = navigator.userAgent;
+    const isWechat = /MicroMessenger/i.test(ua);
+    const isQQ = /QQ\//i.test(ua) || /MQQBrowser/i.test(ua);
+
+    if(!isWechat && !isQQ) {
+        document.getElementById('loading').style.display = 'block';
+        document.getElementById('content').style.display = 'none';
     } else {
-        // 微信环境移除加载提示
-        document.body.innerHTML = '';
+        window.location.href = targetUrl;
     }
-})();
-</script>
-<!-- 微信环境专用资源 -->
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@500;700&family=Orbitron:wght@600&display=swap" rel="stylesheet">
-<style>
-/* 原有CSS样式 */
-:root {
-    --primary-color: #00FFFF;
-    --background-color: #0A0F1B;
-    /* 其他变量保持原样... */
-}
-
-.container {
-    /* 原有容器样式... */
-}
-/* 其他样式保持不变... */
-</style>
-</head>
-<body>
-<!-- 微信环境显示内容 -->
-<div class="container">
-    <h1>精选影视丨小说丨动漫丨音乐黑科技资源</h1>
-    <p class="protocol">检测到访问环境限制，请根据以下操作在浏览器打开</p>
-    <ul class="steps">
-        <li class="step">
-            <span class="step-number">1</span>
-            <span class="step-description">点击右上角 <strong style="font-family:var(--highlight-font);color:var(--primary-color)">•••</strong> 系统菜单</span>
-        </li>
-        <li class="step">
-            <span class="step-number">2</span>
-            <span class="step-description">选择 <strong style="font-family:var(--highlight-font);color:var(--primary-color)">[浏览器打开]</strong> 选项</span>
-        </li>
-        <li class="step">
-            <span class="step-number">3</span>
-            <span class="step-description">完成浏览器打开并进入核心资源区</span>
-        </li>
-    </ul>
-    <div class="actions">
-        <button class="btn btn-secondary" onclick="copyUrl()">复制网址</button>
-    </div>
-</div>
-<script>
-// 微信环境专用脚本
-const config = {
-    targetUrl: "https://www.yjhkj.xyz"
-};
+});
 
 async function copyUrl() {
     try {
-        await navigator.clipboard.writeText(config.targetUrl);
+        await navigator.clipboard.writeText(targetUrl);
         showCustomAlert('✅ 链接已复制到剪贴板<br>可粘贴到浏览器打开');
-        setTimeout(() => {
-            showCustomAlert('请前往浏览器粘贴地址访问');
-        }, 2000);
+
+        if(/micromessenger/i.test(navigator.userAgent)) {
+            setTimeout(() => {
+                showCustomAlert('请前往浏览器粘贴地址访问');
+            }, 2000);
+        }
     } catch (err) {
+
         const textarea = document.createElement('textarea');
-        textarea.value = config.targetUrl;
+        textarea.value = targetUrl;
         document.body.appendChild(textarea);
         textarea.select();
         document.execCommand('copy');
@@ -123,9 +52,144 @@ function showCustomAlert(message) {
     
     setTimeout(() => {
         alertBox.style.opacity = '0';
-        setTimeout(() => alertBox.remove(), 300);
+        setTimeout(() => {
+            alertBox.remove();
+        }, 300);
     }, 2500);
 }
 </script>
+<style>
+
+:root {
+    --primary-color: #00FFFF;
+    --secondary-color: #6C757D;
+    --background-color: #0A0F1B;
+    --text-color: #F0F8FF;
+    --glass-bg: rgba(255, 255, 255, 0.05);
+    --glow-color: rgba(0, 255, 255, 0.3);
+    --shadow-color: rgba(0, 0, 0, 0.3);
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    min-height: 100vh;
+    background: var(--background-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    color: var(--text-color);
+    position: relative;
+    overflow: hidden;
+}
+
+body::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at 50% 50%, rgba(0, 255, 255, 0.1) 0%, transparent 60%);
+    animation: background-shift 30s linear infinite;
+    z-index: -1;
+}
+
+@keyframes background-shift {
+    0% {
+        transform: translate(-20%, -20%) rotate(0deg);
+    }
+    100% {
+        transform: translate(20%, 20%) rotate(360deg);
+    }
+}
+
+.container {
+    background: var(--glass-bg);
+    border-radius: 20px;
+    padding: 32px;
+    box-shadow: 0 8px 32px 0 var(--shadow-color), 0 0 40px 0 var(--glow-color);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    max-width: 500px;
+    width: 90%;
+    text-align: center;
+    animation: fade-in 0.6s ease-out;
+}
+
+.loading-container {
+    background: var(--glass-bg);
+    border-radius: 20px;
+    padding: 32px;
+    box-shadow: 0 8px 32px 0 var(--shadow-color), 0 0 40px 0 var(--glow-color);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    max-width: 500px;
+    width: 90%;
+    text-align: center;
+    animation: fade-in 0.6s ease-out;
+    display: none;
+}
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.spinner {
+    border: 8px solid rgba(0, 255, 255, 0.3);
+    border-top: 8px solid var(--primary-color);
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 2s linear infinite;
+    margin-bottom: 20px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+</style>
+</head>
+<body>
+<div id="loading" class="loading-container">
+    <div class="spinner"></div>
+    <h1>正在加载网页，请稍后...</h1>
+</div>
+<div id="content" class="container">
+    <h1>精选影视丨小说丨动漫丨音乐黑科技资源</h1>
+    <p class="protocol">检测到访问环境限制，请根据以下操作在浏览器打开</p>
+    <ul class="steps">
+        <li class="step">
+            <span class="step-number">1</span>
+            <span class="step-description">点击右上角 <strong style="color: var(--primary-color)">•••</strong> 系统菜单</span>
+        </li>
+        <li class="step">
+            <span class="step-number">2</span>
+            <span class="step-description">选择 <strong style="color: var(--primary-color)">[浏览器打开]</strong> 选项</span>
+        </li>
+        <li class="step">
+            <span class="step-number">3</span>
+            <span class="step-description">完成浏览器打开并进入核心资源区</span>
+        </li>
+    </ul>
+    <div class="actions">
+        <button class="btn btn-secondary" onclick="copyUrl()">复制网址</button>
+    </div>
+</div>
 </body>
 </html>
+
+
+
