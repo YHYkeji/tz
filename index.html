@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>精选影视丨小说丨动漫丨音乐黑科技资源</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+<script>
+
+const targetUrl = "https://www.yjhkj.xyz";
+
+window.addEventListener('DOMContentLoaded', () => {
+    const ua = navigator.userAgent;
+    const isWechat = /MicroMessenger/i.test(ua);
+    const isQQ = /QQ\//i.test(ua) || /MQQBrowser/i.test(ua);
+
+    if(!isWechat && !isQQ) {
+        window.location.href = targetUrl;
+    }
+});
+
+
+async function copyUrl() {
+    try {
+        await navigator.clipboard.writeText(targetUrl);
+        showCustomAlert('✅ 链接已复制到剪贴板<br>可粘贴到浏览器打开');
+
+        if(/micromessenger/i.test(navigator.userAgent)) {
+            setTimeout(() => {
+                showCustomAlert('请前往浏览器粘贴地址访问');
+            }, 2000);
+        }
+    } catch (err) {
+
+        const textarea = document.createElement('textarea');
+        textarea.value = targetUrl;
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textarea);
+        showCustomAlert('✅ 链接已复制到剪贴板');
+    }
+}
+
+function showCustomAlert(message) {
+    const alertBox = document.createElement('div');
+    alertBox.className = 'custom-alert';
+    alertBox.innerHTML = message;
+    document.body.appendChild(alertBox);
+    
+    setTimeout(() => {
+        alertBox.style.opacity = '0';
+        setTimeout(() => {
+            alertBox.remove();
+        }, 300);
+    }, 2500);
+}
+</script>
+<style>
+
+:root {
+    --primary-color: #00FFFF;
+    --secondary-color: #6C757D;
+    --background-color: #0A0F1B;
+    --text-color: #F0F8FF;
+    --glass-bg: rgba(255, 255, 255, 0.05);
+    --glow-color: rgba(0, 255, 255, 0.3);
+    --shadow-color: rgba(0, 0, 0, 0.3);
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    min-height: 100vh;
+    background: var(--background-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    color: var(--text-color);
+    position: relative;
+    overflow: hidden;
+}
+
+body::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at 50% 50%, rgba(0, 255, 255, 0.1) 0%, transparent 60%);
+    animation: background-shift 30s linear infinite;
+    z-index: -1;
+}
+
+@keyframes background-shift {
+    0% {
+        transform: translate(-20%, -20%) rotate(0deg);
+    }
+    100% {
+        transform: translate(20%, 20%) rotate(360deg);
+    }
+}
+
+.container {
+    background: var(--glass-bg);
+    border-radius: 20px;
+    padding: 32px;
+    box-shadow: 0 8px 32px 0 var(--shadow-color), 0 0 40px 0 var(--glow-color);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    max-width: 500px;
+    width: 90%;
+    text-align: center;
+    animation: fade-in 0.6s ease-out;
+}
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+</style>
+</head>
+<body>
+<div class="container">
+    <h1>精选影视丨小说丨动漫丨音乐黑科技资源</h1>
+    <p class="protocol">检测到访问环境限制，请根据以下操作在浏览器打开</p>
+    <ul class="steps">
+        <li class="step">
+            <span class="step-number">1</span>
+            <span class="step-description">点击右上角 <strong style="color: var(--primary-color)">•••</strong> 系统菜单</span>
+        </li>
+        <li class="step">
+            <span class="step-number">2</span>
+            <span class="step-description">选择 <strong style="color: var(--primary-color)">[浏览器打开]</strong> 选项</span>
+        </li>
+        <li class="step">
+            <span class="step-number">3</span>
+            <span class="step-description">完成浏览器打开并进入核心资源区</span>
+        </li>
+    </ul>
+    <div class="actions">
+        <button class="btn btn-secondary" onclick="copyUrl()">复制网址</button>
+    </div>
+</div>
+</body>
+</html>
