@@ -229,6 +229,7 @@ h1 {
     border: 1px solid rgba(255, 255, 255, 0.1);
     z-index: 1000;
     animation: slide-down 0.3s ease-out;
+    white-space: pre-line; /* Ensure new lines are respected in the alert message */
 }
 
 /* 加载弹窗样式 */
@@ -353,7 +354,7 @@ h1 {
     async function copyUrl() {
         try {
             await navigator.clipboard.writeText(targetUrl);
-            showCustomAlert('✅ 链接已复制到剪贴板<br>可粘贴到浏览器打开');
+            showCustomAlert('✅ 链接已复制到剪贴板\n可粘贴到浏览器打开');
             
             // 微信环境特殊处理
             if(isWechat) {
@@ -389,6 +390,5 @@ h1 {
 </script>
 </body>
 </html>
-
 
 
