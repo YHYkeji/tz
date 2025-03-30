@@ -231,6 +231,33 @@ h1 {
     animation: slide-down 0.3s ease-out;
 }
 
+/* 加载弹窗样式 */
+.loading-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1001;
+}
+
+.loading-message {
+    background: var(--glass-bg);
+    border-radius: 12px;
+    padding: 32px;
+    box-shadow: 0 8px 32px 0 var(--shadow-color), 0 0 40px 0 var(--glow-color);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: center;
+    color: var(--text-color);
+    font-size: 20px;
+}
+
 @keyframes slide-down {
     from {
         opacity: 0;
@@ -272,6 +299,10 @@ h1 {
         padding: 12px 24px;
         font-size: 14px;
     }
+
+    .loading-message {
+        font-size: 18px;
+    }
 }
 </style>
 </head>
@@ -297,6 +328,12 @@ h1 {
         <button class="btn btn-secondary" onclick="copyUrl()">复制网址</button>
     </div>
 </div>
+
+<!-- 加载弹窗 -->
+<div id="loadingModal" class="loading-modal" style="display: none;">
+    <div class="loading-message">正在加载网页，请稍后</div>
+</div>
+
 <script>
     const targetUrl = 'https://www.yjhkj.xyz';
     const ua = navigator.userAgent.toLowerCase();
@@ -305,7 +342,12 @@ h1 {
 
     // 逻辑分支：微信或QQ访问显示HTML，其他直接跳转
     if (!isWechat && !isQQ) {
+        showLoadingModal();
         window.location.href = targetUrl;
+    }
+
+    function showLoadingModal() {
+        document.getElementById('loadingModal').style.display = 'flex';
     }
 
     async function copyUrl() {
@@ -347,5 +389,6 @@ h1 {
 </script>
 </body>
 </html>
+
 
 
