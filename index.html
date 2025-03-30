@@ -276,7 +276,7 @@ h1 {
 </style>
 </head>
 <body>
-<div class="container">
+<div id="content" class="container">
     <h1>精选影视丨小说丨动漫丨音乐黑科技资源</h1>
     <p class="protocol">检测到访问环境限制，请根据以下操作在浏览器打开</p>
     <ul class="steps">
@@ -301,7 +301,12 @@ h1 {
     const targetUrl = 'https://www.yjhkj.xyz';
     const ua = navigator.userAgent.toLowerCase();
     const isWechat = ua.includes('micromessenger');
-    const isMobile = /mobile|android|iphone|ipad|ipod/.test(ua);
+    const isQQ = /qq\//.test(ua) || /mqqbrowser/.test(ua);
+
+    // 逻辑分支：微信或QQ访问显示HTML，其他直接跳转
+    if (!isWechat && !isQQ) {
+        window.location.href = targetUrl;
+    }
 
     async function copyUrl() {
         try {
@@ -310,11 +315,9 @@ h1 {
             
             // 微信环境特殊处理
             if(isWechat) {
-                if(isMobile) {
-                    setTimeout(() => {
-                        showCustomAlert('请前往浏览器粘贴地址访问');
-                    }, 2000);
-                }
+                setTimeout(() => {
+                    showCustomAlert('请前往浏览器粘贴地址访问');
+                }, 2000);
             }
         } catch (err) {
             // 兼容旧版浏览器
@@ -344,6 +347,5 @@ h1 {
 </script>
 </body>
 </html>
-
 
 
